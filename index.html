@@ -59,7 +59,7 @@
   <summary id="additem02" style="display: flex; align-items: center; padding: 10px 15px; cursor: pointer; background: #f39600; position: relative;">
     <span style="display: inline-block; color: white; margin-right: 12px; text-align: center; line-height: 25px; font-size: 20px; font-weight: bold;">Ｑ</span>
     <span style="color: #ffffff; margin-left: 0px; font-weight: bold; padding-right: 10%;">Instagram申請方法</span>
-    <span style="margin-right: 10px; color: white; position: absolute; left: 90%; font-size: 25px;">+</span>
+    <span style="margin-right: 10px; color: white; position: absolute; left: 90%; font-size: 15px;">+</span>
   </summary> 
 <div style="padding: 15px;">
   <p style="margin: 0; font-weight: bold; color: #654d3a; font-size: 11px; line-height: 1.8;">
@@ -92,27 +92,87 @@
 <br /> <br /> <br />
 
 
-<div style="max-width: 300px; margin: auto;">
+<title>Instagram埋め込み横並び</title>
+  <script async src="//www.instagram.com/embed.js"></script>
+  <style>
+    .insta-wrapper {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap; /* スマホ対応：狭ければ縦並び */
+      margin-top: 40px;
+    }
+
+    .insta-wrapper blockquote {
+      max-width: 320px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="insta-wrapper">
+  <!-- Instagram投稿1 -->
   <blockquote class="instagram-media"
+    data-instgrm-captioned
+    data-instgrm-permalink="https://www.instagram.com/reel/DJilkXHzUel/?utm_source=ig_embed&amp;utm_campaign=loading"
+    data-instgrm-version="14"
+    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px rgba(0,0,0,0.5), 0 1px 10px rgba(0,0,0,0.15); padding:0;">
+  </blockquote>
+
+  <!-- Instagram投稿2（例） -->
+  <blockquote class="instagram-media"
+    data-instgrm-captioned
     data-instgrm-permalink="https://www.instagram.com/reel/DKV-V3hTbyl/"
     data-instgrm-version="14"
-    style="width: 100%; margin: auto;">
+    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px rgba(0,0,0,0.5), 0 1px 10px rgba(0,0,0,0.15); padding:0;">
   </blockquote>
 </div>
 
-<!-- YouTubeリンク設置 -->
-<div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
-  <!-- 動画1 -->
-  <a href="https://youtu.be/EBbmDJm6T5Y" target="_blank">
-    <img src="https://img.youtube.com/vi/EBbmDJm6T5Y/hqdefault.jpg" 
-         alt="動画1" width="200" style="border-radius: 10px;">
-  </a>
 
-  <!-- 動画2 -->
-  <a href="https://youtu.be/G_AYtWmZxas" target="_blank">
-    <img src="https://img.youtube.com/vi/G_AYtWmZxas/hqdefault.jpg" 
-         alt="動画2" width="200" style="border-radius: 10px;">
+<!-- YouTubeリンク設置 -->
+<div style="
+  background: #fff5e1;           
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 30px auto;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+">
+
+  <!-- タイトル -->
+<h3 style="
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  color: #d47901;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border: 2px solid #d47901;
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #fffaf0;
+">
+  <a href="https://www.youtube.com/@yu.seitai" target="_blank" style="text-decoration: none; color: inherit;">
+    🎥 公式YouTube動画はこちら
   </a>
+</h3>
+
+  <!-- 動画エリア -->
+  <div style="display: flex; gap: 20px; justify-content: center;">
+    <!-- 動画1 -->
+    <a href="https://youtu.be/EBbmDJm6T5Y" target="_blank">
+      <img src="https://img.youtube.com/vi/EBbmDJm6T5Y/hqdefault.jpg" 
+           alt="動画1" width="200" style="border-radius: 10px;">
+    </a>
+
+    <!-- 動画2 -->
+    <a href="https://youtu.be/G_AYtWmZxas" target="_blank">
+      <img src="https://img.youtube.com/vi/G_AYtWmZxas/hqdefault.jpg" 
+           alt="動画2" width="200" style="border-radius: 10px;">
+    </a>
+  </div>
+
 </div>
 
 <!-- Instagram埋め込み -->
