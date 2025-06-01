@@ -3,38 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram埋め込み横並び</title>
+  <script async src="//www.instagram.com/embed.js"></script>
   <style>
-    a.btn--orange {
-      display: inline-block;
-      background-color: #d47901;
-      color: hsl(17, 100%, 48%);
-      padding: 0.5em 1.8em 0.5em 2em;
-      border-radius: 5px;
-      font-weight: bold;
-      text-decoration: none;
-      box-sizing: border-box;
-      width: auto;
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #fffefd;
     }
 
-    @media screen and (max-width: 480px) {
-      a.btn--orange {
-        font-size: 1em;
-        padding: 0.5em 1em;
-        width: 90%;
-      }
+    .wave-header {
+      position: relative;
+      height: 180px;
+      width: 100%;
+      overflow: hidden;
     }
-  </style>
-    <style>
-    body {
-      background-color: #fffefd; /* 薄いオレンジ色 */
+
+    .wave {
+      opacity: .4;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      background: #f39600;
+      width: 1000px;
+      height: 1000px;
+      margin-left: -500px;
+      margin-top: -900px;
+      transform-origin: 50% 48%;
+      border-radius: 43%;
+      animation: drift 3000ms infinite linear;
+    }
+
+    .wave.-two,
+    .wave.-three {
+      display: none;
+    }
+
+    .title {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .title img {
+      max-width: 90%;
+      height: auto;
+    }
+
+    @keyframes drift {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <br /> <br /> <br />
-  <img src="https://i.postimg.cc/tTJ1DV1k/Q-A.png" alt="スペシャルLIVE" width="400" />
-  <br />
- <div class="switch" style="text-align: center;">
+  <!-- 波背景に画像を中央配置 -->
+  <div class="wave-header">
+    <div class="wave"></div>
+    <div class="title">
+      <img src="https://i.postimg.cc/tTJ1DV1k/Q-A.png" alt="スペシャルLIVE" />
+    </div>
+  </div>
+</body>
+</html>
+
+<body>
+  <br /> 
   
     <br><br>
     <details style="background: #fee8ca; border: 1px solid #ffffff; border-radius: 15px; overflow: hidden; margin-bottom: 0.5ex;" open>
@@ -111,24 +148,6 @@
 </head>
 <body>
 
-<div class="insta-wrapper">
-  <!-- Instagram投稿1 -->
-  <blockquote class="instagram-media"
-    data-instgrm-captioned
-    data-instgrm-permalink="https://www.instagram.com/reel/DJilkXHzUel/?utm_source=ig_embed&amp;utm_campaign=loading"
-    data-instgrm-version="14"
-    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px rgba(0,0,0,0.5), 0 1px 10px rgba(0,0,0,0.15); padding:0;">
-  </blockquote>
-
-  <!-- Instagram投稿2（例） -->
-  <blockquote class="instagram-media"
-    data-instgrm-captioned
-    data-instgrm-permalink="https://www.instagram.com/reel/DKV-V3hTbyl/"
-    data-instgrm-version="14"
-    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px rgba(0,0,0,0.5), 0 1px 10px rgba(0,0,0,0.15); padding:0;">
-  </blockquote>
-</div>
-
 
 <!-- YouTubeリンク設置 -->
 <div style="
@@ -175,30 +194,14 @@
 
 </div>
 
-<!-- Instagram埋め込み -->
-<div style="margin-top: 40px; text-align: center;">
-  <blockquote class="instagram-media"
-    data-instgrm-captioned
-    data-instgrm-permalink="https://www.instagram.com/reel/DKV-V3hTbyl/?utm_source=ig_embed&amp;utm_campaign=loading"
-    data-instgrm-version="14"
-    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px rgba(0,0,0,0.5),0 1px 10px rgba(0,0,0,0.15); margin:1px auto; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);">
-  </blockquote>
-</div>
+
+
 <br /> <br /> <br />
 <!-- お問合せボタン -->
-<div style="text-align: center; margin-top: 40px;">
-  <a href="https://line.me/R/ti/p/@516ztvmk" target="_blank" style="
-    background: #95d9f6;
-    color: #2c2c2c;
-    border-radius: 50vh;
-    padding: 1em 2em 0.8em;
-    line-height: 1;
-    display: inline-block;
-    text-decoration: none;
-    font-weight: bold;">
-    お問合せはこちら ▶︎
-  </a>
-</div>
+<div class="switch" style="text-align: center;"><a href="https://line.me/R/ti/p/@516ztvmk
+" rel="noopener noreferrer" target="_blank" style="position: relative; display: inline-block; background: #ff8f00; border:1px solid #ff8f00; box-shadow: 0 3px 5px rgba(0,0,0,.5); border-radius: 5px;  font-size: 1.1em; font-weight: bold; color: #ffffff; text-decoration: none; padding: 0.5em 1.8em 0.5em 2em; transition: 0.5s;" onMouseOver="this.style.background='#ffffff';this.style.color='#000000';this.style.boxShadow= 'none';this.style.border='1px solid #000000';" onMouseOut="this.style.background='#ff8f00';this.style.color='#ffffff';this.style.boxShadow= '0 3px 5px rgba(0,0,0,.5)';this.style.border='1px solid #ff8f00';">泳い合わせはこちら▶︎</a></div>
+
+
 
 </body>
 </html>
