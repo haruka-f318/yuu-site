@@ -157,6 +157,41 @@
  <div style="text-align: center;">
   <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="スペシャルLIVE" width="400" />
 </div>
+<style>
+.glow-button {
+  display: inline-block;
+  background-color: #ff5757;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  animation: glow 3s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(255, 87, 87, 0.3);
+  transition: transform 0.3s ease;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 3px rgba(255, 87, 87, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(255, 87, 87, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 3px rgba(255, 87, 87, 0.2);
+  }
+}
+</style>
+
+<div style="text-align: center; margin: 20px 0;">
+  <a href="https://www.instagram.com/itherapist.yu.seitai/following/"
+     target="_blank"
+     class="glow-button">
+    スクールライブを見る ▶︎
+  </a>
+</div>
 
 <br /><br />
   <!-- 動画エリア -->
@@ -174,16 +209,51 @@
     </a>
   </div>
 
-</div>
 
-
-
-<br /> <br /> <br />
+<br /> 
 <!-- お問合せボタン -->
-<div class="switch" style="text-align: center;"><a href="https://line.me/R/ti/p/@516ztvmk
-" rel="noopener noreferrer" target="_blank" style="position: relative; display: inline-block; background: #ff8f00; border:1px solid #ff8f00; box-shadow: 0 3px 5px rgba(0,0,0,.5); border-radius: 5px;  font-size: 1.1em; font-weight: bold; color: #ffffff; text-decoration: none; padding: 0.5em 1.8em 0.5em 2em; transition: 0.5s;" onMouseOver="this.style.background='#ffffff';this.style.color='#000000';this.style.boxShadow= 'none';this.style.border='1px solid #000000';" onMouseOut="this.style.background='#ff8f00';this.style.color='#ffffff';this.style.boxShadow= '0 3px 5px rgba(0,0,0,.5)';this.style.border='1px solid #ff8f00';">泳い合わせはこちら▶︎</a></div>
+<style>
+.contact-wrapper {
+  text-align: center;
+  margin: 40px 0;
+}
 
+.contact-btn {
+  position: relative;
+  display: inline-block;
+  background-color: #fcbf49;
+  color: #000;
+  font-weight: bold;
+  font-size: 14px; /* ← 小さめの文字に調整 */
+  padding: 10px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
 
+.contact-btn::before {
+  content: "スクール運営事務局";
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: #f57c00;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid #fcbf49;
+  white-space: nowrap; /* ← 1行表示を強制 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
+
+<div class="contact-wrapper">
+  <a href="https://www.instagram.com/itherapist.yu.seitai/following/" class="contact-btn" target="_blank" rel="noopener noreferrer">
+    お問い合わせはこちら▶︎
+  </a>
+</div>
 
 </body>
 </html>
