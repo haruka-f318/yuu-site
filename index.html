@@ -147,7 +147,7 @@
   .slider-container {
     overflow: hidden;
     position: relative;
-    max-width: 360px;
+    max-width: 372px; /* 340px + 16px gap */
     margin: 0 auto;
   }
 
@@ -159,7 +159,7 @@
   }
 
   .slider-track img {
-    width: 320px;
+    width: 340px;
     height: auto;
     border-radius: 10px;
     flex-shrink: 0;
@@ -173,8 +173,8 @@
   }
 
   .slider-button {
-    background-color: #f39600;
-    color: white;
+    background-color: #fcbf49;
+    color: rgb(27, 27, 27);
     padding: 6px 14px;
     font-size: 12px;
     border: none;
@@ -185,16 +185,16 @@
   }
 
   .slider-button:hover {
-    background-color: #d97900;
+    background-color: #ffffff;
   }
 
   @media screen and (max-width: 400px) {
     .slider-container {
-      max-width: 90%;
+      max-width: 94%;
     }
 
     .slider-track img {
-      width: 280px;
+      width: 300px;
     }
   }
 </style>
@@ -202,6 +202,7 @@
 <div class="slider-wrapper">
   <div class="slider-container" id="sliderContainer">
     <div class="slider-track" id="sliderTrack">
+      <div style="text-align: center;"></div>
       <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1">
       <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 2">
       <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 3">
@@ -217,7 +218,7 @@
 
 <script>
   let currentSlide = 0;
-  const slideWidth = 336; // 320px + 16px gap
+  const slideWidth = 356; // 340px image + 16px gap
   const sliderTrack = document.getElementById('sliderTrack');
 
   function goToSlide(index) {
@@ -225,6 +226,7 @@
     sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
   }
 </script>
+
 
 
 
