@@ -173,12 +173,13 @@
   .slider-buttons {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 16px;
-    flex-wrap: wrap;
   }
 
   .slider-button {
+    flex: 1 1 100px;
     background: linear-gradient(to bottom, #fcbf49, #e68400);
     color: #fff;
     padding: 10px 18px;
@@ -189,6 +190,9 @@
     font-weight: bold;
     box-shadow: 0 4px 0 #bd6200;
     transition: all 0.2s ease;
+    text-align: center;
+    min-width: 100px;
+    max-width: 160px;
   }
 
   .slider-button:hover {
@@ -209,6 +213,11 @@
   @media screen and (max-width: 420px) {
     .slider-track img {
       width: 280px;
+    }
+
+    .slider-button {
+      flex: 1 1 100%;
+      max-width: 100%;
     }
   }
 </style>
@@ -238,12 +247,9 @@
     currentSlide = index;
     sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
 
-    // ボタンの選択状態を更新
     const allButtons = document.querySelectorAll('.slider-button');
     allButtons.forEach(btn => btn.classList.remove('selected'));
-    if (buttonElement) {
-      buttonElement.classList.add('selected');
-    }
+    buttonElement.classList.add('selected');
   }
 </script>
 
