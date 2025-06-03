@@ -147,8 +147,10 @@
   .slider-container {
     overflow: hidden;
     position: relative;
-    max-width: 372px; /* 340px + 16px gap */
+    max-width: 400px;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
   }
 
   .slider-track {
@@ -156,45 +158,57 @@
     gap: 16px;
     transition: transform 0.4s ease;
     will-change: transform;
+    margin: 0 auto;
   }
 
   .slider-track img {
-    width: 340px;
+    width: 360px;
     height: auto;
     border-radius: 10px;
     flex-shrink: 0;
+    display: block;
+    margin: 0 auto;
   }
 
   .slider-buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
   }
 
   .slider-button {
-    background-color: #ffffff;
-    color: rgb(27, 27, 27);
-    padding: 6px 14px;
-    font-size: 12px;
+    background: linear-gradient(to bottom, #fcbf49, #e68400);
+    color: #fff;
+    padding: 10px 18px;
+    font-size: 14px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s;
+    box-shadow: 0 4px 0 #bd6200;
+    transition: all 0.2s ease;
   }
 
   .slider-button:hover {
-    background-color: #fcbf49;
+    background: linear-gradient(to bottom, #fcbf49, #e69100);
+    opacity: 0.95;
   }
 
-  @media screen and (max-width: 400px) {
-    .slider-container {
-      max-width: 94%;
-    }
+  .slider-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #bd6200;
+  }
 
+  .slider-button.selected {
+    background: linear-gradient(to bottom, #ff5757, #d94400);
+    box-shadow: none;
+  }
+
+  @media screen and (max-width: 420px) {
     .slider-track img {
-      width: 300px;
+      width: 280px;
     }
   }
 </style>
@@ -202,7 +216,6 @@
 <div class="slider-wrapper">
   <div class="slider-container" id="sliderContainer">
     <div class="slider-track" id="sliderTrack">
-      <div style="text-align: center;"></div>
       <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1">
       <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 2">
       <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 3">
@@ -210,20 +223,27 @@
   </div>
 
   <div class="slider-buttons">
-    <button class="slider-button" onclick="goToSlide(0)">LIVEカレンダー</button>
-    <button class="slider-button" onclick="goToSlide(1)">練習会申し込み</button>
-    <button class="slider-button" onclick="goToSlide(2)">フォロー申請</button>
+    <button class="slider-button selected" onclick="goToSlide(0, this)">LIVEカレンダー</button>
+    <button class="slider-button" onclick="goToSlide(1, this)">練習会申し込み</button>
+    <button class="slider-button" onclick="goToSlide(2, this)">フォロー申請</button>
   </div>
 </div>
 
 <script>
   let currentSlide = 0;
-  const slideWidth = 356; // 340px image + 16px gap
+  const slideWidth = 376;
   const sliderTrack = document.getElementById('sliderTrack');
 
-  function goToSlide(index) {
+  function goToSlide(index, buttonElement) {
     currentSlide = index;
     sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
+    // ボタンの選択状態を更新
+    const allButtons = document.querySelectorAll('.slider-button');
+    allButtons.forEach(btn => btn.classList.remove('selected'));
+    if (buttonElement) {
+      buttonElement.classList.add('selected');
+    }
   }
 </script>
 
