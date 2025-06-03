@@ -135,110 +135,113 @@
 <br /> <br /> <br />
 
 <style>
-.slider-container {
-  width: 150%;
-  max-width: 520px;
-  margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-}
+  .slider-wrapper {
+    background-color: #fff5e1; /* 背景はここに指定 */
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 360px;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
 
-.slider-track {
-  display: flex;
-  transition: transform 0.4s ease;
-  gap: 16px;
-  padding-left: 10px;
-}
+  .slider-container {
+    overflow: hidden;
+    position: relative;
+  }
 
-.slider-track img {
-  width: 350px;
-  height: auto;
-  flex-shrink: 0;
-  border-radius: 8px;
-}
+  .slider-track {
+    display: flex;
+    gap: 16px;
+    transition: transform 0.4s ease;
+  }
 
-.slider-dots {
-  text-align: center;
-  margin-top: 10px;
-}
+  .slider-track img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
 
-.slider-dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 0 5px;
-  background: #ccc;
-  border-radius: 50%;
-  cursor: pointer;
-}
+  .slider-dots {
+    text-align: center;
+    margin-top: 10px;
+  }
 
-.slider-dot.active {
-  background: #333;
-}
+  .slider-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    background: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .slider-dot.active {
+    background: #333;
+  }
 </style>
 
-<div class="slider-container" id="sliderContainer">
-  <div class="slider-track" id="sliderTrack">
-    <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1">
-    <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 2">
-    <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 3">
+<div class="slider-wrapper">
+  <div class="slider-container" id="sliderContainer">
+    <div class="slider-track" id="sliderTrack">
+      <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1" />
+      <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 2" />
+      <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 3" />
+    </div>
+  </div>
+
+  <div class="slider-dots">
+    <span class="slider-dot active" onclick="goToSlide(0)"></span>
+    <span class="slider-dot" onclick="goToSlide(1)"></span>
+    <span class="slider-dot" onclick="goToSlide(2)"></span>
   </div>
 </div>
 
-<div class="slider-dots">
-  <span class="slider-dot active" onclick="goToSlide(0)"></span>
-  <span class="slider-dot" onclick="goToSlide(1)"></span>
-  <span class="slider-dot" onclick="goToSlide(2)"></span>
-</div>
-
 <script>
-let currentSlide = 0;
-const slideWidth = 266; // 250px + 16px gap
-const sliderTrack = document.getElementById('sliderTrack');
-const dots = document.querySelectorAll('.slider-dot');
+  let currentSlide = 0;
+  const slideWidth = 266; // 250px + 16px gap
+  const sliderTrack = document.getElementById('sliderTrack');
+  const dots = document.querySelectorAll('.slider-dot');
 
-function goToSlide(index) {
-  currentSlide = index;
-  updateSlider();
-}
-
-function updateSlider() {
-  sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-  dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
-}
-
-// Swipe対応
-let startX = 0;
-let isDragging = false;
-
-const sliderContainer = document.getElementById('sliderContainer');
-
-sliderContainer.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].clientX;
-  isDragging = true;
-});
-
-sliderContainer.addEventListener('touchmove', (e) => {
-  if (!isDragging) return;
-  let deltaX = e.touches[0].clientX - startX;
-  if (Math.abs(deltaX) > 50) {
-    if (deltaX < 0 && currentSlide < 2) {
-      currentSlide++;
-    } else if (deltaX > 0 && currentSlide > 0) {
-      currentSlide--;
-    }
+  function goToSlide(index) {
+    currentSlide = index;
     updateSlider();
-    isDragging = false;
   }
-});
 
-sliderContainer.addEventListener('touchend', () => {
-  isDragging = false;
-});
+  function updateSlider() {
+    sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+  }
+
+  // Touchスワイプ対応
+  let startX = 0;
+  let isDragging = false;
+  const sliderContainer = document.getElementById('sliderContainer');
+
+  sliderContainer.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  });
+
+  sliderContainer.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const deltaX = e.touches[0].clientX - startX;
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX < 0 && currentSlide < 2) {
+        currentSlide++;
+      } else if (deltaX > 0 && currentSlide > 0) {
+        currentSlide--;
+      }
+      updateSlider();
+      isDragging = false;
+    }
+  });
+
+  sliderContainer.addEventListener('touchend', () => {
+    isDragging = false;
+  });
 </script>
-
-
-
 
 
 
