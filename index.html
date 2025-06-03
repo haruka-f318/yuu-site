@@ -136,23 +136,26 @@
 
 <style>
 .slider-container {
-  position: relative;
   width: 100%;
-  max-width: 600px;
+  max-width: 320px;
   margin: 0 auto;
   overflow: hidden;
-  border-radius: 10px;
+  position: relative;
 }
 
 .slider-track {
   display: flex;
   transition: transform 0.5s ease;
-  width: 300%; /* 3枚分 */
+  width: calc(300px * 3); /* 画像3枚分 */
+  gap: 16px; /* スライド間に余白 */
+  padding-left: 10px;
 }
 
 .slider-track img {
-  width: 100%;
+  width: 250px; /* 小さめにして隣が見えるように */
+  height: auto;
   flex-shrink: 0;
+  border-radius: 8px;
 }
 
 .slider-dots {
@@ -177,14 +180,12 @@
 
 <div class="slider-container">
   <div class="slider-track" id="sliderTrack">
-    <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1"
-     style="width: 100%; max-width: 300px; height: auto;" /> 
-    <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1"
-     style="width: 100%; max-width: 300px; height: auto;" /> 
-    <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1"
-     style="width: 100%; max-width: 300px; height: auto;" /> 
+    <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1">
+    <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 2">
+    <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 3">
   </div>
 </div>
+
 <div class="slider-dots">
   <span class="slider-dot active" onclick="goToSlide(0)"></span>
   <span class="slider-dot" onclick="goToSlide(1)"></span>
@@ -193,27 +194,21 @@
 
 <script>
 let currentSlide = 0;
-const totalSlides = 3;
+const slideWidth = 266; // 250px image + 16px gap
 const sliderTrack = document.getElementById('sliderTrack');
 const dots = document.querySelectorAll('.slider-dot');
 
-function updateSlider() {
-  sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-  dots.forEach((dot, index) => {
-    dot.classList.toggle('active', index === currentSlide);
-  });
-}
-
 function goToSlide(index) {
   currentSlide = index;
-  updateSlider();
+  sliderTrack.style.transform = `translateX(-${index * slideWidth}px)`;
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
 }
-
-setInterval(() => {
-  currentSlide = (currentSlide + 1) % totalSlides;
-  updateSlider();
-}, 4000); // 4秒ごとに自動スライド
 </script>
+
+
+
 
 
 <!-- 配信インスタリンクー -->
