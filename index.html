@@ -136,8 +136,8 @@
 
 <style>
 .slider-container {
-  width: 100%;
-  max-width: 320px;
+  width: 150%;
+  max-width: 520px;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
@@ -145,14 +145,13 @@
 
 .slider-track {
   display: flex;
-  transition: transform 0.5s ease;
-  width: calc(300px * 3); /* 画像3枚分 */
-  gap: 16px; /* スライド間に余白 */
+  transition: transform 0.4s ease;
+  gap: 16px;
   padding-left: 10px;
 }
 
 .slider-track img {
-  width: 250px; /* 小さめにして隣が見えるように */
+  width: 350px;
   height: auto;
   flex-shrink: 0;
   border-radius: 8px;
@@ -178,7 +177,7 @@
 }
 </style>
 
-<div class="slider-container">
+<div class="slider-container" id="sliderContainer">
   <div class="slider-track" id="sliderTrack">
     <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1">
     <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 2">
@@ -194,18 +193,50 @@
 
 <script>
 let currentSlide = 0;
-const slideWidth = 266; // 250px image + 16px gap
+const slideWidth = 266; // 250px + 16px gap
 const sliderTrack = document.getElementById('sliderTrack');
 const dots = document.querySelectorAll('.slider-dot');
 
 function goToSlide(index) {
   currentSlide = index;
-  sliderTrack.style.transform = `translateX(-${index * slideWidth}px)`;
-  dots.forEach((dot, i) => {
-    dot.classList.toggle('active', i === index);
-  });
+  updateSlider();
 }
+
+function updateSlider() {
+  sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+}
+
+// Swipe対応
+let startX = 0;
+let isDragging = false;
+
+const sliderContainer = document.getElementById('sliderContainer');
+
+sliderContainer.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+  isDragging = true;
+});
+
+sliderContainer.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  let deltaX = e.touches[0].clientX - startX;
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX < 0 && currentSlide < 2) {
+      currentSlide++;
+    } else if (deltaX > 0 && currentSlide > 0) {
+      currentSlide--;
+    }
+    updateSlider();
+    isDragging = false;
+  }
+});
+
+sliderContainer.addEventListener('touchend', () => {
+  isDragging = false;
+});
 </script>
+
 
 
 
