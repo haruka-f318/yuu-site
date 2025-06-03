@@ -134,25 +134,6 @@
 
 <br /> <br /> <br />
 
-
-<title>Instagram埋め込み横並び</title>
-  <script async src="//www.instagram.com/embed.js"></script>
-  <style>
-    .insta-wrapper {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap; /* スマホ対応：狭ければ縦並び */
-      margin-top: 40px;
-    }
-
-    .insta-wrapper blockquote {
-      max-width: 320px;
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
 <!-- 配信カレンダー -->
  <div style="text-align: center;">
   <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="スペシャルLIVE" width="400" />
@@ -193,8 +174,83 @@
   </a>
 </div>
 
-<br /><br />
-  <!-- 動画エリア -->
+
+<style>
+.insta-section {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+  font-family: sans-serif;
+}
+
+.insta-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.insta-title img {
+  width: 24px;
+  height: 24px;
+}
+
+.insta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.insta-grid img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+</style>
+
+<div class="insta-section">
+<div class="insta-title" style="font-size: 13px;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 20px; height: 20px;">
+  公式 Instagram
+</div>
+<p style="font-size: 12px; color: #000000; margin: 8px 0;">
+  幸せに10歳若返る整体｜ゆう先生
+</p>
+
+  <div class="insta-grid">
+<!-- インスタ投稿1 -->
+  <a href="https://www.instagram.com/reel/DJJOXFtyMJ8/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank" rel="noopener noreferrer">
+  <img src="https://i.postimg.cc/kgbhVyxm/D2-D0-EE50-C0-F3-4239-87-A5-7-EC5-A32553-DC.jpg" alt="Instagram Reel" style="width: 100%; max-width: 300px; border-radius: 8px;" />
+</a>
+<!-- インスタ投稿２ -->
+   <a href="https://www.instagram.com/reel/Cyc5_MVuprM/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank" rel="noopener noreferrer">
+  <img src="https://i.postimg.cc/J7YTPFx8/D65-F99-F9-77-A9-4-E43-94-EC-EDD1590097-AA.jpg" alt="Instagram Reel" style="width: 100%; max-width: 300px; border-radius: 8px;" />
+</a>
+<!-- インスタ投稿３ -->
+   <a href="https://www.instagram.com/reel/DKbIcx7ulv4/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank" rel="noopener noreferrer">
+  <img src="https://i.postimg.cc/VNzBY9g4/872-D85-DA-A0-BB-4-A93-B1-C0-3161-EF614-EC9.jpg" alt="Instagram Reel" style="width: 100%; max-width: 300px; border-radius: 8px;" />
+</a>
+<!-- インスタ投稿４ -->
+<a href="https://www.instagram.com/reel/DKYdL-YTCUc/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank" rel="noopener noreferrer">
+  <img src="https://i.postimg.cc/pr5K0sVV/B0-D690-FE-0-A80-4-D84-B762-B6-EABB984532.jpg" alt="Post 4" style="width: 100%; max-width: 300px; border-radius: 10px;" />
+</a>
+<!-- インスタ投稿５ -->
+    <a href="https://www.instagram.com/reel/DKV-V3hTbyl/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank" rel="noopener noreferrer">
+  <img src="https://i.postimg.cc/0rgDh7rY/3414797-F-5-A73-4-ED4-A8-E8-F3057-E9418-D9.jpg" alt="Post 5" style="width: 100%; max-width: 300px; border-radius: 10px;" />
+</a>
+<!-- インスタ投稿６ -->
+  <a href="https://www.instagram.com/reel/DKTtoGduE3O/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank" rel="noopener noreferrer">
+  <img src="https://i.postimg.cc/MZgLz4QD/0-EBFB676-5-CFC-47-AA-ABF8-71-A3-BDEBE6-CE.jpg" alt="Post 6" style="width: 100%; max-width: 300px; border-radius: 10px;" />
+</a>
+
+  </div>
+
+</div>
   <div style="display: flex; gap: 20px; justify-content: center;">
     <!-- 動画1 -->
     <a href="https://youtu.be/EBbmDJm6T5Y" target="_blank">
@@ -207,7 +263,11 @@
       <img src="https://img.youtube.com/vi/G_AYtWmZxas/hqdefault.jpg" 
            alt="動画2" width="200" style="border-radius: 10px;">
     </a>
-  </div>
+  </div></fieldset>
+
+
+
+<br /><br />
 
 
 <br /> 
