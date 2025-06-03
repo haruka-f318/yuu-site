@@ -136,10 +136,10 @@
 
 <style>
   .slider-wrapper {
-    background-color: #fff5e1; /* 背景はここに指定 */
+    background: #fff5e1;
     padding: 20px;
     border-radius: 12px;
-    max-width: 360px;
+    max-width: 100%;
     margin: 0 auto;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
@@ -147,101 +147,86 @@
   .slider-container {
     overflow: hidden;
     position: relative;
+    max-width: 360px;
+    margin: 0 auto;
   }
 
   .slider-track {
     display: flex;
     gap: 16px;
     transition: transform 0.4s ease;
+    will-change: transform;
   }
 
   .slider-track img {
-    width: 300px;
+    width: 320px;
     height: auto;
-    border-radius: 8px;
+    border-radius: 10px;
     flex-shrink: 0;
   }
 
-  .slider-dots {
-    text-align: center;
-    margin-top: 10px;
+  .slider-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
   }
 
-  .slider-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin: 0 4px;
-    background: #ccc;
-    border-radius: 50%;
+  .slider-button {
+    background-color: #f39600;
+    color: white;
+    padding: 6px 14px;
+    font-size: 12px;
+    border: none;
+    border-radius: 50px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
   }
 
-  .slider-dot.active {
-    background: #333;
+  .slider-button:hover {
+    background-color: #d97900;
+  }
+
+  @media screen and (max-width: 400px) {
+    .slider-container {
+      max-width: 90%;
+    }
+
+    .slider-track img {
+      width: 280px;
+    }
   }
 </style>
 
 <div class="slider-wrapper">
   <div class="slider-container" id="sliderContainer">
     <div class="slider-track" id="sliderTrack">
-      <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1" />
-      <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 2" />
-      <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 3" />
+      <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 1">
+      <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 2">
+      <img src="https://i.postimg.cc/tJYTYP6L/6.png" alt="Slide 3">
     </div>
   </div>
 
-  <div class="slider-dots">
-    <span class="slider-dot active" onclick="goToSlide(0)"></span>
-    <span class="slider-dot" onclick="goToSlide(1)"></span>
-    <span class="slider-dot" onclick="goToSlide(2)"></span>
+  <div class="slider-buttons">
+    <button class="slider-button" onclick="goToSlide(0)">LIVEカレンダー</button>
+    <button class="slider-button" onclick="goToSlide(1)">練習会申し込み</button>
+    <button class="slider-button" onclick="goToSlide(2)">フォロー申請</button>
   </div>
 </div>
 
 <script>
   let currentSlide = 0;
-  const slideWidth = 266; // 250px + 16px gap
+  const slideWidth = 336; // 320px + 16px gap
   const sliderTrack = document.getElementById('sliderTrack');
-  const dots = document.querySelectorAll('.slider-dot');
 
   function goToSlide(index) {
     currentSlide = index;
-    updateSlider();
-  }
-
-  function updateSlider() {
     sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
   }
-
-  // Touchスワイプ対応
-  let startX = 0;
-  let isDragging = false;
-  const sliderContainer = document.getElementById('sliderContainer');
-
-  sliderContainer.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-  });
-
-  sliderContainer.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    const deltaX = e.touches[0].clientX - startX;
-    if (Math.abs(deltaX) > 50) {
-      if (deltaX < 0 && currentSlide < 2) {
-        currentSlide++;
-      } else if (deltaX > 0 && currentSlide > 0) {
-        currentSlide--;
-      }
-      updateSlider();
-      isDragging = false;
-    }
-  });
-
-  sliderContainer.addEventListener('touchend', () => {
-    isDragging = false;
-  });
 </script>
+
+
 
 
 
