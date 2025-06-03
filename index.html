@@ -179,33 +179,42 @@
   }
 
   .slider-button {
-  flex: 1 1 100px;
-  background: linear-gradient(to bottom, #fcbf49, #e68400);
-  color: #fff;
-  padding: 6px 12px; /* ← 縦幅狭く */
-  font-size: 13px; /* ← 文字サイズ調整 */
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 3px 0 #bd6200;
-  transition: all 0.2s ease;
-  text-align: center;
-  min-width: 100px;
-  max-width: 160px;
-  white-space: nowrap; /* ← 改行させない */
-}
+    flex: 1 1 100px;
+    background: linear-gradient(to bottom, #fcbf49, #e68400);
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 13px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 3px 0 #bd6200;
+    transition: all 0.2s ease;
+    text-align: center;
+    min-width: 100px;
+    max-width: 160px;
+    white-space: nowrap;
+  }
 
-.slider-button:hover {
-  background: linear-gradient(to bottom, #fcbf49, #e69100);
-  opacity: 0.95;
-}
+  .slider-button:hover {
+    background: linear-gradient(to bottom, #fcbf49, #e69100);
+    opacity: 0.95;
+  }
 
-.slider-button:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #bd6200;
-}
+  .slider-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #bd6200;
+  }
 
+  .slider-button.selected {
+    background: linear-gradient(to bottom, #f7c187, #fabf8e);
+  }
+
+  @media screen and (max-width: 420px) {
+    .slider-track img {
+      width: 280px;
+    }
+  }
 </style>
 
 <div class="slider-wrapper">
@@ -229,15 +238,16 @@
   const slideWidth = 376;
   const sliderTrack = document.getElementById('sliderTrack');
 
-  function goToSlide(index, buttonElement) {
+  function goToSlide(index, button) {
     currentSlide = index;
     sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
 
-    const allButtons = document.querySelectorAll('.slider-button');
-    allButtons.forEach(btn => btn.classList.remove('selected'));
-    buttonElement.classList.add('selected');
+    // ボタンのスタイルを更新
+    document.querySelectorAll('.slider-button').forEach(btn => btn.classList.remove('selected'));
+    button.classList.add('selected');
   }
 </script>
+
 
 
 
