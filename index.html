@@ -217,25 +217,40 @@
   }
 </style>
 
+<!-- ここに <style> のCSS をそのまま使ってOK -->
+
 <div class="slider-wrapper">
-
   <div class="slider-container" id="sliderContainer">
-  <div class="slider-track" id="sliderTrack">
-    <!-- 画像の確認 -->
-    <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png"alt="Slide 1">
-    <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="Slide 2">
-    <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="Slide 3">
+    <div class="slider-track" id="sliderTrack">
+      <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png" alt="Slide 1">
+      <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="Slide 2">
+      <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="Slide 3">
+    </div>
   </div>
-</div>
-
 
   <div class="slider-buttons">
-    <button class="slider-button" onclick="goToSlide(1, this)">対面練習</button>
+    <button class="slider-button selected" onclick="goToSlide(1, this)">対面練習</button>
     <button class="slider-button" onclick="goToSlide(2, this)">ZOOM練習会</button>
-    
     <button class="slider-button" onclick="goToSlide(3, this)">フォロー申請</button>
   </div>
 </div>
+
+<!-- JavaScript を必ず末尾に配置 -->
+<script>
+  const sliderTrack = document.getElementById("sliderTrack");
+  const buttons = document.querySelectorAll(".slider-button");
+
+  function goToSlide(index, button) {
+    const slideWidth = document.querySelector(".slider-track img").clientWidth + 16; // gap
+    const offset = (index - 1) * slideWidth;
+
+    sliderTrack.style.transform = `translateX(-${offset}px)`;
+
+    buttons.forEach(btn => btn.classList.remove("selected"));
+    button.classList.add("selected");
+  }
+</script>
+
 
 <script>
   let currentSlide = 0;
