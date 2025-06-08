@@ -217,6 +217,7 @@
   }
 </style>
 
+
 <!-- ここに <style> のCSS をそのまま使ってOK -->
 
 <div class="slider-wrapper">
@@ -238,21 +239,24 @@
   </div>
 </div>
 
-<!-- JavaScript を必ず末尾に配置 -->
 <script>
   const sliderTrack = document.getElementById("sliderTrack");
   const buttons = document.querySelectorAll(".slider-button");
 
   function goToSlide(index, button) {
-    const slideWidth = document.querySelector(".slider-track img").clientWidth + 16; // gap
+    const slide = document.querySelector(".slider-track img");
+    const slideWidth = slide.clientWidth + 16; // 画像幅＋gap（16px）
     const offset = (index - 1) * slideWidth;
 
+    // スライド移動
     sliderTrack.style.transform = `translateX(-${offset}px)`;
 
+    // ボタン選択状態を更新
     buttons.forEach(btn => btn.classList.remove("selected"));
     button.classList.add("selected");
   }
 </script>
+
 
 
 <script>
