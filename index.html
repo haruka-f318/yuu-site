@@ -218,28 +218,33 @@
 </div>
 
 <script>
-  window.addEventListener("load", () => {
+  window.addEventListener("load", function () {
     const track = document.getElementById("sliderTrack");
+    const container = document.getElementById("sliderContainer");
     const buttons = document.querySelectorAll(".slider-button");
     const slides = track.querySelectorAll("img");
-    const container = document.getElementById("sliderContainer");
 
     function updateSlide(index, button) {
-      // Step1: reset
-      track.style.transform = "translateX(0)";
+      const slide = slides[index];
+      const slideRect = slide.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
 
-      // Step2: calculate fresh
-      const slideWidth = slides[0].getBoundingClientRect().width;
-      const containerWidth = container.getBoundingClientRect().width;
-      const offset = slideWidth * index - (containerWidth - slideWidth) / 2;
+      const currentTransform = getComputedStyle(track).transform;
+      const match = currentTransform.match(/matrix\(.*,\s*(-?\d+\.?\d*)\)/);
+      const currentTranslateX = match ? parseFloat(match[1]) : 0;
 
-      // Step3: apply final
+      const absoluteSlideLeft = slideRect.left + window.scrollX;
+      const absoluteContainerLeft = containerRect.left + window.scrollX;
+
+      const offset = absoluteSlideLeft - absoluteContainerLeft + currentTranslateX - (container.offsetWidth - slide.offsetWidth) / 2;
+
       track.style.transform = `translateX(-${offset}px)`;
 
       buttons.forEach(btn => btn.classList.remove("selected"));
       button.classList.add("selected");
     }
 
+    // イベント登録
     buttons.forEach((button, i) => {
       button.addEventListener("click", () => updateSlide(i, button));
     });
@@ -248,12 +253,6 @@
     updateSlide(0, buttons[0]);
   });
 </script>
-
-
-
-
-
-
 
 
 <!-- 配信インスタリンクー -->
