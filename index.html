@@ -225,28 +225,31 @@
     const container = document.getElementById("sliderContainer");
 
     function updateSlide(index, button) {
-      const slide = slides[index];
-      const slideRect = slide.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
+      const slideWidth = slides[index].getBoundingClientRect().width;
+      const slideOffset = slideWidth * index;
+      const containerWidth = container.getBoundingClientRect().width;
 
-      const currentScroll = track.getBoundingClientRect().left;
-      const offset = slide.offsetLeft - (container.offsetWidth / 2) + (slide.offsetWidth / 2);
+      // 正確に中央に表示するためのオフセット計算
+      const offset = slideOffset - (containerWidth - slideWidth) / 2;
 
+      // スライド位置を更新
       track.style.transform = `translateX(-${offset}px)`;
 
+      // ボタンの選択状態更新
       buttons.forEach(btn => btn.classList.remove("selected"));
-      button.classList.add("selected");
+      if (button) button.classList.add("selected");
     }
-
-    // イベント設定
-    buttons.forEach((button, i) => {
-      button.addEventListener("click", () => updateSlide(i, button));
-    });
 
     // 初期表示（対面練習）
     updateSlide(0, buttons[0]);
+
+    // ボタンごとにイベント追加
+    buttons.forEach((button, index) => {
+      button.addEventListener("click", () => updateSlide(index, button));
+    });
   });
 </script>
+
 
 
 
