@@ -225,7 +225,7 @@
     <div class="slider-track" id="sliderTrack">
       <!-- スライド1 -->
       <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png" alt="Slide 1">
-      <!-- スライド2（別の画像に変更）-->
+      <!-- スライド2 -->
       <img src="https://i.postimg.cc/KYQfR9dg/yuu-karigazou.png" alt="Slide 2">
       <!-- スライド3 -->
       <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="Slide 3">
@@ -240,25 +240,28 @@
 </div>
 
 <script>
+  let sliderTrack, buttons, slides;
+
   document.addEventListener("DOMContentLoaded", function () {
-    const sliderTrack = document.getElementById("sliderTrack");
-    const buttons = document.querySelectorAll(".slider-button");
-    const slides = sliderTrack.querySelectorAll("img");
+    sliderTrack = document.getElementById("sliderTrack");
+    buttons = document.querySelectorAll(".slider-button");
+    slides = sliderTrack.querySelectorAll("img");
 
-    function goToSlide(index, button) {
-      const targetSlide = slides[index - 1];
-      const offset = targetSlide.offsetLeft;
-
-      sliderTrack.style.transform = `translateX(-${offset}px)`;
-
-      buttons.forEach(btn => btn.classList.remove("selected"));
-      button.classList.add("selected");
-    }
-
-    // 最初のスライドを表示（オプション）
+    // 初期表示
     goToSlide(1, buttons[0]);
   });
+
+  function goToSlide(index, button) {
+    const targetSlide = slides[index - 1];
+    const offset = targetSlide.offsetLeft;
+
+    sliderTrack.style.transform = `translateX(-${offset}px)`;
+
+    buttons.forEach(btn => btn.classList.remove("selected"));
+    button.classList.add("selected");
+  }
 </script>
+
 
 
 
