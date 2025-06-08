@@ -217,20 +217,22 @@
   </div>
 </div>
 
-
-
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+  window.addEventListener("load", function () {
     const track = document.getElementById("sliderTrack");
     const buttons = document.querySelectorAll(".slider-button");
     const slides = track.querySelectorAll("img");
     const container = document.getElementById("sliderContainer");
 
     function updateSlide(index, button) {
-      const slideWidth = slides[0].getBoundingClientRect().width;
-      const containerWidth = container.getBoundingClientRect().width;
+      const slide = slides[index];
+      const slideRect = slide.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
 
-      const offset = slideWidth * index - (containerWidth - slideWidth) / 2;
+      const currentTransform = track.style.transform || "translateX(0px)";
+      const translateX = Number(currentTransform.match(/-?\d+/)?.[0] || 0);
+
+      const offset = (slideRect.left - containerRect.left) + translateX - (container.offsetWidth - slide.offsetWidth) / 2;
 
       track.style.transform = `translateX(-${offset}px)`;
 
@@ -242,10 +244,10 @@
       button.addEventListener("click", () => updateSlide(i, button));
     });
 
-    updateSlide(0, buttons[0]); // 初期表示
+    // 初期表示
+    updateSlide(0, buttons[0]);
   });
 </script>
-
 
 
 
