@@ -215,6 +215,15 @@
       width: 280px;
     }
   }
+
+  .slider-track {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.4s ease;
+  will-change: transform;
+  margin: 0 auto;
+  width: max-content; /* ← 追加推奨 */
+}
 </style>
 
 
@@ -240,27 +249,31 @@
 </div>
 
 <script>
-  let sliderTrack, buttons, slides;
-
   document.addEventListener("DOMContentLoaded", function () {
-    sliderTrack = document.getElementById("sliderTrack");
-    buttons = document.querySelectorAll(".slider-button");
-    slides = sliderTrack.querySelectorAll("img");
+    const sliderTrack = document.getElementById("sliderTrack");
+    const buttons = document.querySelectorAll(".slider-button");
+    const slides = sliderTrack.querySelectorAll("img");
 
-    // 初期表示
+    function goToSlide(index, button) {
+      const slideWidth = slides[0].offsetWidth + 16; // 画像幅 + gap(16px)
+      const offset = (index - 1) * slideWidth;
+
+      sliderTrack.style.transform = `translateX(-${offset}px)`;
+
+      buttons.forEach(btn => btn.classList.remove("selected"));
+      if (button) button.classList.add("selected");
+    }
+
+    // 最初の表示
     goToSlide(1, buttons[0]);
+
+    // 各ボタンにイベントを付け直す（onclick属性をやめてJSで制御）
+    buttons.forEach((button, i) => {
+      button.addEventListener("click", () => goToSlide(i + 1, button));
+    });
   });
-
-  function goToSlide(index, button) {
-    const targetSlide = slides[index - 1];
-    const offset = targetSlide.offsetLeft;
-
-    sliderTrack.style.transform = `translateX(-${offset}px)`;
-
-    buttons.forEach(btn => btn.classList.remove("selected"));
-    button.classList.add("selected");
-  }
 </script>
+
 
 
 
