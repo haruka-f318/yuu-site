@@ -252,11 +252,19 @@
   document.addEventListener("DOMContentLoaded", function () {
     const sliderTrack = document.getElementById("sliderTrack");
     const buttons = document.querySelectorAll(".slider-button");
-    const slides = sliderTrack.querySelectorAll("img");
+    const slides = Array.from(sliderTrack.querySelectorAll("img"));
 
     function goToSlide(index, button) {
-      const slideWidth = slides[0].offsetWidth + 16; // 画像幅 + gap(16px)
-      const offset = (index - 1) * slideWidth;
+      // indexは1始まり → 0始まりに変換
+      const slide = slides[index - 1];
+      const containerLeft = sliderTrack.getBoundingClientRect().left;
+      const slideLeft = slide.getBoundingClientRect().left;
+
+      const currentOffset = sliderTrack.style.transform.match(/-?\d+/);
+      const previousTranslateX = currentOffset ? parseInt(currentOffset[0], 10) : 0;
+
+      // 差分だけを移動
+      const offset = slide.offsetLeft;
 
       sliderTrack.style.transform = `translateX(-${offset}px)`;
 
@@ -264,15 +272,16 @@
       if (button) button.classList.add("selected");
     }
 
-    // 最初の表示
+    // 初期表示
     goToSlide(1, buttons[0]);
 
-    // 各ボタンにイベントを付け直す（onclick属性をやめてJSで制御）
+    // 各ボタンにイベントを割り当て（onclickではなく）
     buttons.forEach((button, i) => {
       button.addEventListener("click", () => goToSlide(i + 1, button));
     });
   });
 </script>
+
 
 
 
