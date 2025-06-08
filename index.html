@@ -218,22 +218,22 @@
 </div>
 
 <script>
-  window.addEventListener("load", function () {
+  window.addEventListener("load", () => {
     const track = document.getElementById("sliderTrack");
     const buttons = document.querySelectorAll(".slider-button");
     const slides = track.querySelectorAll("img");
     const container = document.getElementById("sliderContainer");
 
     function updateSlide(index, button) {
-      const slide = slides[index];
-      const slideRect = slide.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
+      // Step1: reset
+      track.style.transform = "translateX(0)";
 
-      const currentTransform = track.style.transform || "translateX(0px)";
-      const translateX = Number(currentTransform.match(/-?\d+/)?.[0] || 0);
+      // Step2: calculate fresh
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      const containerWidth = container.getBoundingClientRect().width;
+      const offset = slideWidth * index - (containerWidth - slideWidth) / 2;
 
-      const offset = (slideRect.left - containerRect.left) + translateX - (container.offsetWidth - slide.offsetWidth) / 2;
-
+      // Step3: apply final
       track.style.transform = `translateX(-${offset}px)`;
 
       buttons.forEach(btn => btn.classList.remove("selected"));
@@ -249,22 +249,6 @@
   });
 </script>
 
-
-
-<script>
-  let currentSlide = 0;
-  const slideWidth = 376;
-  const sliderTrack = document.getElementById('sliderTrack');
-
-  function goToSlide(index, button) {
-    currentSlide = index;
-    sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-
-    // ボタンのスタイルを更新
-    document.querySelectorAll('.slider-button').forEach(btn => btn.classList.remove('selected'));
-    button.classList.add('selected');
-  }
-</script>
 
 
 
@@ -346,6 +330,7 @@
   border-radius: 8px;
   object-fit: cover;
 }
+
 </style>
 
 <div class="insta-section">
