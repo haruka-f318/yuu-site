@@ -133,7 +133,6 @@
 
 
 <br /> <br /> <br />
-
 <style>
   .slider-wrapper {
     background: #fff5e1;
@@ -150,12 +149,14 @@
     max-width: 400px;
     margin: 0 auto;
     width: 100%;
+    padding: 0;
   }
 
   .slider-track {
     display: flex;
     transition: transform 0.4s ease;
     width: fit-content;
+    margin: 0;
   }
 
   .slider-track img {
@@ -164,6 +165,7 @@
     border-radius: 10px;
     flex-shrink: 0;
     display: block;
+    margin: 0;
   }
 
   .slider-buttons {
@@ -199,15 +201,6 @@
       width: 280px;
     }
   }
-  .slider-container {
-  padding: 0; /* paddingがあるとズレます */
-}
-.slider-track {
-  margin: 0;
-}
-.slider-track img {
-  margin: 0;
-}
 </style>
 
 <div class="slider-wrapper">
@@ -227,36 +220,32 @@
 </div>
 
 <script>
-  window.addEventListener("load", () => {
+  window.addEventListener("load", function () {
     const track = document.getElementById("sliderTrack");
+    const container = document.getElementById("sliderContainer");
     const buttons = document.querySelectorAll(".slider-button");
     const slides = track.querySelectorAll("img");
-    const container = document.getElementById("sliderContainer");
 
     function updateSlide(index, button) {
-      // Step1: reset
-      track.style.transform = "translateX(0)";
-
-      // Step2: calculate fresh
-      const slideWidth = slides[0].getBoundingClientRect().width;
+      const slide = slides[index];
+      const slideWidth = slide.getBoundingClientRect().width;
       const containerWidth = container.getBoundingClientRect().width;
-      const offset = slideWidth * index - (containerWidth - slideWidth) / 2;
 
-      // Step3: apply final
+      const offset = slide.offsetLeft - (containerWidth - slideWidth) / 2;
       track.style.transform = `translateX(-${offset}px)`;
 
       buttons.forEach(btn => btn.classList.remove("selected"));
       button.classList.add("selected");
     }
 
-    buttons.forEach((button, i) => {
-      button.addEventListener("click", () => updateSlide(i, button));
+    buttons.forEach((button, index) => {
+      button.addEventListener("click", () => updateSlide(index, button));
     });
 
-    // 初期表示
     updateSlide(0, buttons[0]);
   });
 </script>
+
 
 
 
