@@ -199,6 +199,15 @@
       width: 280px;
     }
   }
+  .slider-container {
+  padding: 0; /* paddingがあるとズレます */
+}
+.slider-track {
+  margin: 0;
+}
+.slider-track img {
+  margin: 0;
+}
 </style>
 
 <div class="slider-wrapper">
@@ -220,23 +229,19 @@
 <script>
   window.addEventListener("load", function () {
     const track = document.getElementById("sliderTrack");
-    const container = document.getElementById("sliderContainer");
     const buttons = document.querySelectorAll(".slider-button");
     const slides = track.querySelectorAll("img");
+    const container = document.getElementById("sliderContainer");
 
     function updateSlide(index, button) {
       const slide = slides[index];
       const slideRect = slide.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
 
-      const currentTransform = getComputedStyle(track).transform;
-      const match = currentTransform.match(/matrix\(.*,\s*(-?\d+\.?\d*)\)/);
-      const currentTranslateX = match ? parseFloat(match[1]) : 0;
+      const currentTransform = track.style.transform || "translateX(0px)";
+      const translateX = Number(currentTransform.match(/-?\d+/)?.[0] || 0);
 
-      const absoluteSlideLeft = slideRect.left + window.scrollX;
-      const absoluteContainerLeft = containerRect.left + window.scrollX;
-
-      const offset = absoluteSlideLeft - absoluteContainerLeft + currentTranslateX - (container.offsetWidth - slide.offsetWidth) / 2;
+      const offset = (slideRect.left - containerRect.left) + translateX - (container.offsetWidth - slide.offsetWidth) / 2;
 
       track.style.transform = `translateX(-${offset}px)`;
 
@@ -244,7 +249,6 @@
       button.classList.add("selected");
     }
 
-    // イベント登録
     buttons.forEach((button, i) => {
       button.addEventListener("click", () => updateSlide(i, button));
     });
@@ -253,6 +257,28 @@
     updateSlide(0, buttons[0]);
   });
 </script>
+
+
+
+<script>
+  let currentSlide = 0;
+  const slideWidth = 376;
+  const sliderTrack = document.getElementById('sliderTrack');
+
+  function goToSlide(index, button) {
+    currentSlide = index;
+    sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
+    // ボタンのスタイルを更新
+    document.querySelectorAll('.slider-button').forEach(btn => btn.classList.remove('selected'));
+    button.classList.add('selected');
+  }
+</script>
+
+
+
+
+
 
 
 <!-- 配信インスタリンクー -->
