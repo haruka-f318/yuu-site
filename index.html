@@ -240,22 +240,26 @@
 </div>
 
 <script>
-  const sliderTrack = document.getElementById("sliderTrack");
-  const buttons = document.querySelectorAll(".slider-button");
+  document.addEventListener("DOMContentLoaded", function () {
+    const sliderTrack = document.getElementById("sliderTrack");
+    const buttons = document.querySelectorAll(".slider-button");
+    const slides = sliderTrack.querySelectorAll("img");
 
-  function goToSlide(index, button) {
-    const slide = document.querySelector(".slider-track img");
-    const slideWidth = slide.clientWidth + 16; // 画像幅＋gap（16px）
-    const offset = (index - 1) * slideWidth;
+    function goToSlide(index, button) {
+      const targetSlide = slides[index - 1];
+      const offset = targetSlide.offsetLeft;
 
-    // スライド移動
-    sliderTrack.style.transform = `translateX(-${offset}px)`;
+      sliderTrack.style.transform = `translateX(-${offset}px)`;
 
-    // ボタン選択状態を更新
-    buttons.forEach(btn => btn.classList.remove("selected"));
-    button.classList.add("selected");
-  }
+      buttons.forEach(btn => btn.classList.remove("selected"));
+      button.classList.add("selected");
+    }
+
+    // 最初のスライドを表示（オプション）
+    goToSlide(1, buttons[0]);
+  });
 </script>
+
 
 
 
