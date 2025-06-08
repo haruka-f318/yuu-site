@@ -149,6 +149,7 @@
     position: relative;
     max-width: 400px;
     margin: 0 auto;
+    width: 100%;
   }
 
   .slider-track {
@@ -170,6 +171,7 @@
     justify-content: center;
     gap: 10px;
     margin-top: 16px;
+    flex-wrap: wrap;
   }
 
   .slider-button {
@@ -191,10 +193,16 @@
   .slider-button.selected {
     background: linear-gradient(to bottom, #f7c187, #fabf8e);
   }
+
+  @media screen and (max-width: 420px) {
+    .slider-track img {
+      width: 280px;
+    }
+  }
 </style>
 
 <div class="slider-wrapper">
-  <div class="slider-container">
+  <div class="slider-container" id="sliderContainer">
     <div class="slider-track" id="sliderTrack">
       <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png" alt="Slide 1">
       <img src="https://i.postimg.cc/KYQfR9dg/yuu-karigazou.png" alt="Slide 2">
@@ -214,12 +222,16 @@
     const track = document.getElementById("sliderTrack");
     const buttons = document.querySelectorAll(".slider-button");
     const slides = track.querySelectorAll("img");
+    const container = document.getElementById("sliderContainer");
 
     buttons.forEach(button => {
       button.addEventListener("click", () => {
         const index = parseInt(button.getAttribute("data-index"), 10);
         const slideWidth = slides[0].offsetWidth;
-        track.style.transform = `translateX(-${index * slideWidth}px)`;
+        const containerWidth = container.offsetWidth;
+        const offset = (slideWidth * index) - (containerWidth - slideWidth) / 2;
+
+        track.style.transform = `translateX(-${offset}px)`;
 
         buttons.forEach(btn => btn.classList.remove("selected"));
         button.classList.add("selected");
@@ -227,6 +239,7 @@
     });
   });
 </script>
+
 
 
 
