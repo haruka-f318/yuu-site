@@ -134,7 +134,7 @@
 
 <br /> <br /> <br />
 
-<<style>
+<style>
 .slider-wrapper {
   padding: 20px;
   max-width: 100%;
@@ -192,22 +192,16 @@
 <div class="slider-wrapper">
   <div class="slider-container" id="sliderContainer">
     <div class="slider-track" id="sliderTrack">
-      <a href="https://mosh.jp/services/a3905858bfcf46b094f6cdb167c3390b" target="_blank">
-        <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png" alt="対面練習">
-      </a>
-      <a href="https://mosh.jp/services/260763?fbclid=PAQ0xDS..." target="_blank">
-        <img src="https://i.postimg.cc/KYQfR9dg/yuu-karigazou.png" alt="ZOOM練習会">
-      </a>
-      <a href="https://docs.google.com/forms/d/1TyCDd3z..." target="_blank">
-        <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="フォロー申請">
-      </a>
+      <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png" alt="対面練習">
+      <img src="https://i.postimg.cc/KYQfR9dg/yuu-karigazou.png" alt="ZOOM練習会">
+      <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="フォロー申請">
     </div>
   </div>
 
   <div class="slider-buttons">
-    <button class="slider-button selected" data-index="0">対面練習</button>
-    <button class="slider-button" data-index="1">ZOOM練習会</button>
-    <button class="slider-button" data-index="2">フォロー申請</button>
+    <button class="slider-button selected" data-index="0" data-link="https://mosh.jp/services/a3905858bfcf46b094f6cdb167c3390b">対面練習</button>
+    <button class="slider-button" data-index="1" data-link="https://mosh.jp/services/260763?fbclid=PAQ0xDS...">ZOOM練習会</button>
+    <button class="slider-button" data-index="2" data-link="https://docs.google.com/forms/d/1TyCDd3z...">フォロー申請</button>
   </div>
 </div>
 
@@ -217,31 +211,34 @@ window.addEventListener("load", function () {
   const track = document.getElementById("sliderTrack");
   const container = document.getElementById("sliderContainer");
   const buttons = document.querySelectorAll(".slider-button");
-  const slides = track.querySelectorAll("a");
+  const slides = track.querySelectorAll("img");
 
   function updateSlide(index, button) {
     const slideWidth = slides[0].getBoundingClientRect().width;
     const containerWidth = container.getBoundingClientRect().width;
     const offset = slideWidth * index - (containerWidth - slideWidth) / 2;
 
-    // 強制的にスライド位置を更新
     track.style.transform = `translateX(-${offset}px)`;
-
-    // すべてのボタンから selected を外す → 再付与
     buttons.forEach(btn => btn.classList.remove("selected"));
     button.classList.add("selected");
   }
 
   buttons.forEach((button, i) => {
     button.addEventListener("click", () => {
-      updateSlide(i, button); // 再クリックでも必ず動作
+      updateSlide(i, button);
+    });
+
+    // 画像タップでリンク遷移（オプション）
+    slides[i].addEventListener("click", () => {
+      const link = button.getAttribute("data-link");
+      if (link) window.open(link, "_blank");
     });
   });
 
-  // 初期表示：1番目にセット
   updateSlide(0, buttons[0]);
 });
 </script>
+
 
 
 
