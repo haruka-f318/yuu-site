@@ -223,19 +223,26 @@ window.addEventListener("load", function () {
     const slideWidth = slides[0].getBoundingClientRect().width;
     const containerWidth = container.getBoundingClientRect().width;
     const offset = slideWidth * index - (containerWidth - slideWidth) / 2;
+
+    // 強制的にスライド位置を更新
     track.style.transform = `translateX(-${offset}px)`;
 
+    // すべてのボタンから selected を外す → 再付与
     buttons.forEach(btn => btn.classList.remove("selected"));
     button.classList.add("selected");
   }
 
   buttons.forEach((button, i) => {
-    button.addEventListener("click", () => updateSlide(i, button));
+    button.addEventListener("click", () => {
+      updateSlide(i, button); // 再クリックでも必ず動作
+    });
   });
 
-  updateSlide(0, buttons[0]); // 初期表示
+  // 初期表示：1番目にセット
+  updateSlide(0, buttons[0]);
 });
 </script>
+
 
 
 <!-- 配信インスタリンクー -->
