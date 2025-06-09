@@ -133,111 +133,123 @@
 
 
 <br /> <br /> <br />
+ <style>
+    .slider-wrapper {
+      padding: 20px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
 
-<style>
-.slider-wrapper {
-  padding: 20px;
-  max-width: 100%;
-  margin: 0 auto;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
+    .slider-container {
+      overflow: hidden;
+      max-width: 400px;
+      margin: 0 auto;
+      width: 100%;
+    }
 
-.slider-container {
-  overflow: hidden;
-  position: relative;
-  max-width: 400px;
-  margin: 0 auto;
-  width: 100%;
-}
+    .slider-track {
+      display: flex;
+      transition: transform 0.4s ease;
+      width: fit-content;
+    }
 
-.slider-track {
-  display: flex;
-  transition: transform 0.4s ease;
-  width: fit-content;
-}
+    .slider-track a {
+      flex-shrink: 0;
+    }
 
-.slider-track a {
-  flex-shrink: 0;
-}
+    .slider-track img {
+      width: 360px;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
 
-.slider-track img {
-  width: 360px;
-  height: auto;
-  display: block;
-  border-radius: 10px;
-}
+    .slider-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
 
-.slider-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 16px;
-}
+    .slider-button {
+      padding: 8px 14px;
+      border-radius: 50px;
+      background: #fcbf49;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.slider-button {
-  padding: 8px 14px;
-  border-radius: 50px;
-  background: #fcbf49;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
+    .slider-button.selected {
+      background: #fabf8e;
+    }
 
-.slider-button.selected {
-  background: #fabf8e;
-}
-</style>
-
+    @media screen and (max-width: 420px) {
+      .slider-track img {
+        width: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
 
 <div class="slider-wrapper">
   <div class="slider-container" id="sliderContainer">
     <div class="slider-track" id="sliderTrack">
-      <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png" alt="対面練習">
-      <img src="https://i.postimg.cc/KYQfR9dg/yuu-karigazou.png" alt="ZOOM練習会">
-      <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="フォロー申請">
+
+      <!-- 対面練習 -->
+      <a href="https://mosh.jp/services/a3905858bfcf46b094f6cdb167c3390b" target="_blank">
+        <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png" alt="対面練習">
+      </a>
+
+      <!-- ZOOM練習会 -->
+      <a href="https://mosh.jp/services/260763" target="_blank">
+        <img src="https://i.postimg.cc/KYQfR9dg/yuu-karigazou.png" alt="ZOOM練習会">
+      </a>
+
+      <!-- フォロー申請 -->
+      <a href="https://docs.google.com/forms/d/1TyCDd3z645EsHH1t7cpWgEhLxLkfehqKU-EAyg-vwAQ" target="_blank">
+        <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="フォロー申請">
+      </a>
+
     </div>
   </div>
 
   <div class="slider-buttons">
-    <button class="slider-button selected" data-index="0" data-link="https://mosh.jp/services/a3905858bfcf46b094f6cdb167c3390b">対面練習</button>
-    <button class="slider-button" data-index="1" data-link="https://mosh.jp/services/260763?fbclid=PAQ0xDS...">ZOOM練習会</button>
-    <button class="slider-button" data-index="2" data-link="https://docs.google.com/forms/d/1TyCDd3z...">フォロー申請</button>
+    <button class="slider-button selected" data-index="0">対面練習</button>
+    <button class="slider-button" data-index="1">ZOOM練習会</button>
+    <button class="slider-button" data-index="2">フォロー申請</button>
   </div>
 </div>
 
-
 <script>
-window.addEventListener("load", function () {
-  const track = document.getElementById("sliderTrack");
-  const container = document.getElementById("sliderContainer");
-  const buttons = document.querySelectorAll(".slider-button");
-  const slides = track.querySelectorAll("img");
+  window.addEventListener("load", function () {
+    const track = document.getElementById("sliderTrack");
+    const container = document.getElementById("sliderContainer");
+    const buttons = document.querySelectorAll(".slider-button");
+    const slides = Array.from(track.querySelectorAll("a"));
 
-  function updateSlide(index, button) {
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    const containerWidth = container.getBoundingClientRect().width;
-    const offset = slideWidth * index - (containerWidth - slideWidth) / 2;
+    function updateSlide(index, button) {
+      const slide = slides[index];
+      const slideLeft = slide.offsetLeft;
+      const containerWidth = container.clientWidth;
+      const slideWidth = slide.clientWidth;
 
-    track.style.transform = `translateX(-${offset}px)`;
-    buttons.forEach(btn => btn.classList.remove("selected"));
-    button.classList.add("selected");
-  }
+      const offset = slideLeft - (containerWidth - slideWidth) / 2;
+      track.style.transform = `translateX(-${offset}px)`;
 
-  buttons.forEach((button, i) => {
-    button.addEventListener("click", () => {
-      updateSlide(i, button);
+      buttons.forEach(btn => btn.classList.remove("selected"));
+      button.classList.add("selected");
+    }
+
+    buttons.forEach((button, index) => {
+      button.addEventListener("click", () => updateSlide(index, button));
     });
 
-    // 画像タップでリンク遷移（オプション）
-    slides[i].addEventListener("click", () => {
-      const link = button.getAttribute("data-link");
-      if (link) window.open(link, "_blank");
-    });
+    updateSlide(0, buttons[0]); // 初期表示
   });
-
-  updateSlide(0, buttons[0]);
-});
 </script>
+
 
 
 
