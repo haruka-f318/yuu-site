@@ -231,24 +231,30 @@
 
     function updateSlide(index, button) {
       const slide = slides[index];
-      const slideLeft = slide.offsetLeft;
-      const containerWidth = container.clientWidth;
-      const slideWidth = slide.clientWidth;
+      const slideRect = slide.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
 
-      const offset = slideLeft - (containerWidth - slideWidth) / 2;
+      // container内のスライドの相対位置から中央補正
+      const offset = slideRect.left - containerRect.left + track.scrollLeft;
+
       track.style.transform = `translateX(-${offset}px)`;
 
       buttons.forEach(btn => btn.classList.remove("selected"));
       button.classList.add("selected");
     }
 
+    // 遅延読み込み対策＋安全性UP
     buttons.forEach((button, index) => {
-      button.addEventListener("click", () => updateSlide(index, button));
+      button.addEventListener("click", () => {
+        setTimeout(() => updateSlide(index, button), 50);
+      });
     });
 
-    updateSlide(0, buttons[0]); // 初期表示
+    // 初期表示で1枚目を中央に
+    setTimeout(() => updateSlide(0, buttons[0]), 100);
   });
 </script>
+
 
 
 
