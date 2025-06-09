@@ -231,11 +231,11 @@
 
     function updateSlide(index, button) {
       const slide = slides[index];
-      const slideLeft = slide.offsetLeft;
-      const containerWidth = container.clientWidth;
-      const slideWidth = slide.clientWidth;
+      const slideRect = slide.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
 
-      const offset = slideLeft - (containerWidth - slideWidth) / 2;
+      const offset = slideRect.left - containerRect.left + track.scrollLeft;
+
       track.style.transform = `translateX(-${offset}px)`;
 
       buttons.forEach(btn => btn.classList.remove("selected"));
@@ -246,12 +246,9 @@
       button.addEventListener("click", () => updateSlide(index, button));
     });
 
-    updateSlide(0, buttons[0]); // 初期表示
+    updateSlide(0, buttons[0]);
   });
 </script>
-
-
-
 
 
 <!-- 配信インスタリンクー -->
