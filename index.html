@@ -133,82 +133,74 @@
 
 
 <br /> <br /> <br />
-<style>
-  .slider-wrapper {
-    background: #fff5e1;
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 100%;
-    margin: 0 auto;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
 
-  .slider-container {
-    overflow: hidden;
-    position: relative;
-    max-width: 400px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0;
-  }
+<<style>
+.slider-wrapper {
+  padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 
-  .slider-track {
-    display: flex;
-    transition: transform 0.4s ease;
-    width: fit-content;
-    margin: 0;
-  }
+.slider-container {
+  overflow: hidden;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+}
 
-  .slider-track img {
-    width: 360px;
-    height: auto;
-    border-radius: 10px;
-    flex-shrink: 0;
-    display: block;
-    margin: 0;
-  }
+.slider-track {
+  display: flex;
+  transition: transform 0.4s ease;
+  width: fit-content;
+}
 
-  .slider-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-  }
+.slider-track a {
+  flex-shrink: 0;
+}
 
-  .slider-button {
-    background: linear-gradient(to bottom, #fcbf49, #e68400);
-    color: #fff;
-    padding: 6px 12px;
-    font-size: 13px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 3px 0 #bd6200;
-    transition: all 0.2s ease;
-    text-align: center;
-    min-width: 100px;
-    max-width: 160px;
-  }
+.slider-track img {
+  width: 360px;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
 
-  .slider-button.selected {
-    background: linear-gradient(to bottom, #f7c187, #fabf8e);
-  }
+.slider-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
 
-  @media screen and (max-width: 420px) {
-    .slider-track img {
-      width: 280px;
-    }
-  }
+.slider-button {
+  padding: 8px 14px;
+  border-radius: 50px;
+  background: #fcbf49;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.slider-button.selected {
+  background: #fabf8e;
+}
 </style>
+
 
 <div class="slider-wrapper">
   <div class="slider-container" id="sliderContainer">
     <div class="slider-track" id="sliderTrack">
-      <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png" alt="Slide 1">
-      <img src="https://i.postimg.cc/KYQfR9dg/yuu-karigazou.png" alt="Slide 2">
-      <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="Slide 3">
+      <a href="https://mosh.jp/services/a3905858bfcf46b094f6cdb167c3390b" target="_blank">
+        <img src="https://i.postimg.cc/rFzBc4RJ/yuu-yokohama.png" alt="対面練習">
+      </a>
+      <a href="https://mosh.jp/services/260763?fbclid=PAQ0xDS..." target="_blank">
+        <img src="https://i.postimg.cc/KYQfR9dg/yuu-karigazou.png" alt="ZOOM練習会">
+      </a>
+      <a href="https://docs.google.com/forms/d/1TyCDd3z..." target="_blank">
+        <img src="https://i.postimg.cc/WbMMdWZb/yuu-follow.png" alt="フォロー申請">
+      </a>
     </div>
   </div>
 
@@ -219,38 +211,31 @@
   </div>
 </div>
 
+
 <script>
-  window.addEventListener("load", function () {
-    const track = document.getElementById("sliderTrack");
-    const container = document.getElementById("sliderContainer");
-    const buttons = document.querySelectorAll(".slider-button");
-    const slides = track.querySelectorAll("img");
+window.addEventListener("load", function () {
+  const track = document.getElementById("sliderTrack");
+  const container = document.getElementById("sliderContainer");
+  const buttons = document.querySelectorAll(".slider-button");
+  const slides = track.querySelectorAll("a");
 
-    function updateSlide(index, button) {
-      const slide = slides[index];
-      const slideWidth = slide.getBoundingClientRect().width;
-      const containerWidth = container.getBoundingClientRect().width;
+  function updateSlide(index, button) {
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    const containerWidth = container.getBoundingClientRect().width;
+    const offset = slideWidth * index - (containerWidth - slideWidth) / 2;
+    track.style.transform = `translateX(-${offset}px)`;
 
-      const offset = slide.offsetLeft - (containerWidth - slideWidth) / 2;
-      track.style.transform = `translateX(-${offset}px)`;
+    buttons.forEach(btn => btn.classList.remove("selected"));
+    button.classList.add("selected");
+  }
 
-      buttons.forEach(btn => btn.classList.remove("selected"));
-      button.classList.add("selected");
-    }
-
-    buttons.forEach((button, index) => {
-      button.addEventListener("click", () => updateSlide(index, button));
-    });
-
-    updateSlide(0, buttons[0]);
+  buttons.forEach((button, i) => {
+    button.addEventListener("click", () => updateSlide(i, button));
   });
+
+  updateSlide(0, buttons[0]); // 初期表示
+});
 </script>
-
-
-
-
-
-
 
 
 <!-- 配信インスタリンクー -->
