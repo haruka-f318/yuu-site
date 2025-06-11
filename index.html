@@ -232,27 +232,27 @@
     const buttons = document.querySelectorAll(".slider-button");
     const slides = Array.from(track.querySelectorAll("a"));
 
-    function updateSlide(index, button) {
+    function updateSlide(index) {
       const slide = slides[index];
+      const slideOffsetLeft = slide.offsetLeft;
       const containerWidth = container.clientWidth;
       const slideWidth = slide.clientWidth;
-      const slideOffset = slide.offsetLeft;
 
-      const offset = slideOffset - (containerWidth - slideWidth) / 2;
+      const offset = slideOffsetLeft - (containerWidth - slideWidth) / 2;
       track.style.transform = `translateX(-${offset}px)`;
 
       buttons.forEach(btn => btn.classList.remove("selected"));
-      button.classList.add("selected");
+      buttons[index].classList.add("selected");
     }
 
     buttons.forEach((button, index) => {
       button.addEventListener("click", () => {
-        updateSlide(index, button);
+        updateSlide(index);
       });
     });
 
     // 初期表示
-    updateSlide(0, buttons[0]);
+    updateSlide(0);
   });
 </script>
 
