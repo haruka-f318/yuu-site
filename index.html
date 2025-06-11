@@ -233,12 +233,8 @@
     const slides = Array.from(track.querySelectorAll("a"));
 
     function updateSlide(index) {
-      const slide = slides[index];
-      const slideOffsetLeft = slide.offsetLeft;
-      const containerWidth = container.clientWidth;
-      const slideWidth = slide.clientWidth;
-
-      const offset = slideOffsetLeft - (containerWidth - slideWidth) / 2;
+      const slideWidth = slides[0].clientWidth + 20; // 画像 + margin
+      const offset = slideWidth * index;
       track.style.transform = `translateX(-${offset}px)`;
 
       buttons.forEach(btn => btn.classList.remove("selected"));
@@ -255,6 +251,7 @@
     updateSlide(0);
   });
 </script>
+
 
 
 <!-- 配信インスタリンクー -->
