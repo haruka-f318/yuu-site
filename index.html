@@ -133,65 +133,68 @@
 
 
 <br /> <br /> <br />
- <style>
-    .slider-wrapper {
-      padding: 20px;
-      max-width: 100%;
-      margin: 0 auto;
-    }
+<style>
+  .slider-wrapper {
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
 
-    .slider-container {
-      overflow: hidden;
-      max-width: 400px;
-      margin: 0 auto;
-      width: 100%;
-    }
+  .slider-container {
+    overflow: hidden;
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+  }
 
-    .slider-track {
-      display: flex;
-      transition: transform 0.4s ease;
-      width: fit-content;
-    }
+  .slider-track {
+    display: flex;
+    transition: transform 0.4s ease;
+  }
 
+  .slider-track a {
+    flex-shrink: 0;
+    width: 360px;
+    display: block;
+    margin: 0 10px;
+  }
+
+  .slider-track img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .slider-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .slider-button {
+    padding: 8px 14px;
+    border-radius: 50px;
+    background: #fcbf49;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+
+  .slider-button.selected {
+    background: #fabf8e;
+  }
+
+  @media screen and (max-width: 420px) {
     .slider-track a {
-      flex-shrink: 0;
+      width: 280px;
     }
-
-    .slider-track img {
-      width: 360px;
-      height: auto;
-      border-radius: 10px;
-      display: block;
-    }
-
-    .slider-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .slider-button {
-      padding: 8px 14px;
-      border-radius: 50px;
-      background: #fcbf49;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .slider-button.selected {
-      background: #fabf8e;
-    }
-
-    @media screen and (max-width: 420px) {
-      .slider-track img {
-        width: 280px;
-      }
-    }
-  </style>
-</head>
-<body>
+  }
+</style>
 
 <div class="slider-wrapper">
   <div class="slider-container" id="sliderContainer">
@@ -231,11 +234,11 @@
 
     function updateSlide(index, button) {
       const slide = slides[index];
-      const slideLeft = slide.offsetLeft;
       const containerWidth = container.clientWidth;
       const slideWidth = slide.clientWidth;
+      const slideOffset = slide.offsetLeft;
 
-      const offset = slideLeft - (containerWidth - slideWidth) / 2;
+      const offset = slideOffset - (containerWidth - slideWidth) / 2;
       track.style.transform = `translateX(-${offset}px)`;
 
       buttons.forEach(btn => btn.classList.remove("selected"));
@@ -248,7 +251,7 @@
       });
     });
 
-    // 初期表示で1枚目に合わせる
+    // 初期表示
     updateSlide(0, buttons[0]);
   });
 </script>
